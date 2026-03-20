@@ -1,263 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Easy Intake</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-<style>
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  background: #f6f7fb;
-  color: #111;
-}
-
-.container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 24px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-weight: 700;
-  font-size: 20px;
-}
-
-.badge {
-  background: #eef2ff;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  display: inline-block;
-  margin-top: 10px;
-}
-
-.hero {
-  margin-top: 30px;
-}
-
-.hero h1 {
-  font-size: 34px;
-  margin-bottom: 10px;
-}
-
-.hero p {
-  color: #555;
-  font-size: 15px;
-}
-
-.notice {
-  background: #eef2ff;
-  padding: 12px;
-  border-radius: 8px;
-  margin-top: 15px;
-  font-size: 13px;
-  color: #333;
-}
-
-.preview {
-  margin-top: 20px;
-  background: #0f172a;
-  color: #38bdf8;
-  border-radius: 10px;
-  padding: 16px;
-  font-family: monospace;
-  font-size: 12px;
-}
-
-.section {
-  margin-top: 50px;
-}
-
-.section h2 {
-  font-size: 22px;
-  margin-bottom: 8px;
-}
-
-.section p {
-  color: #555;
-  font-size: 14px;
-}
-
-.cards {
-  display: grid;
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.card {
-  background: white;
-  padding: 16px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.card h3 {
-  margin: 0 0 6px;
-}
-
-.workflow {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  margin-top: 20px;
-  text-align: center;
-}
-
-.flow-grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 15px;
-  margin-top: 15px;
-}
-
-.flow-item {
-  padding: 20px;
-  background: #f1f5f9;
-  border-radius: 8px;
-  font-size: 12px;
-}
-
-.cta {
-  background: #dbeafe;
-  padding: 25px;
-  border-radius: 14px;
-  text-align: center;
-  margin-top: 50px;
-}
-
-input {
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
-  border: none;
-  margin-top: 10px;
-}
-
-button {
-  margin-top: 10px;
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
-  border: none;
-  background: #2563eb;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 12px;
-  color: #888;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Intake | Automate Data Capture Anywhere</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #030712; }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #030712 100%);
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
 </head>
+<body class="text-gray-200 antialiased">
 
-<body>
+    <nav class="fixed top-0 w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-3">
+            <div class="text-xl font-extrabold tracking-tight text-white">
+                EASY<span class="text-blue-500">INTAKE</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400">
+                <span class="hover:text-white transition cursor-default">Product</span>
+                <span class="hover:text-white transition cursor-default">Technology</span>
+                <span class="hover:text-white transition cursor-default">Multilingual</span>
+            </div>
+            <div class="text-xs font-bold uppercase tracking-widest text-blue-400 border border-blue-400/30 px-4 py-2 rounded-full">
+                V1.0 Rolling Out
+            </div>
+        </div>
+    </nav>
 
-<div class="container">
+    <main class="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient pt-20">
+        <div class="absolute inset-0 opacity-20">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+        </div>
 
-  <div class="header">
-    <div class="logo">Easy Intake</div>
-    <div>Contact</div>
-  </div>
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="inline-block px-4 py-1.5 mb-6 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-blue-500/10 border border-blue-500/20 rounded-full">
+                The Future of Automated Data Capture
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+                Intake Without <br><span class="text-gradient">Boundaries.</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Easy Intake is a multilingual web application that automates workflow and streamlines data capture from prospects, leads, and customers—<strong>in any language</strong>.
+            </p>
 
-  <div class="hero">
-    <div class="badge">🌐 Spanish & English Supported 🇺🇸 🇲🇽</div>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-16">
+                <div class="glass px-6 py-4 rounded-xl flex items-center space-x-3">
+                    <span class="text-blue-400">⚡</span>
+                    <span class="text-sm">Instant CRM Sync</span>
+                </div>
+                <div class="glass px-6 py-4 rounded-xl flex items-center space-x-3">
+                    <span class="text-purple-400">🌐</span>
+                    <span class="text-sm">Multilingual Support</span>
+                </div>
+                <div class="glass px-6 py-4 rounded-xl flex items-center space-x-3">
+                    <span class="text-green-400">📄</span>
+                    <span class="text-sm">PDF & API Ready</span>
+                </div>
+            </div>
 
-    <h1>Data Capture, Automated in Any Language</h1>
+            <div class="inline-flex items-center space-x-4 glass p-2 pr-6 rounded-full">
+                <span class="bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full animate-pulse">UPDATE</span>
+                <span class="text-sm font-medium">More Information Coming Soon</span>
+            </div>
+        </div>
 
-    <p>
-      Seamlessly capture lead or customer information across phone, chat, and web forms.
-    </p>
+        <div class="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/20 blur-[120px] rounded-full"></div>
+    </main>
 
-    <p>
-      Sync directly into your CRM, applications, and internal workflows.
-    </p>
-
-    <div class="notice">
-      We’re currently in private beta. Join early access to learn more.
-    </div>
-
-    <div class="preview">
-{
-  "name": "Maria Lopez",
-  "language": "Spanish",
-  "product": "Insurance",
-  "status": "Validated & Structured",
-  "next_step": "Ready for submission"
-}
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Smart Capture. Global Reach.</h2>
-    <p>The precision engine for high-velocity teams.</p>
-
-    <div class="cards">
-
-      <div class="card">
-        <h3>Phone Voice Capture</h3>
-        <p>AI-driven transcription and structured intake across 50+ languages.</p>
-      </div>
-
-      <div class="card">
-        <h3>Intelligent Chat</h3>
-        <p>Automatically extract and structure customer data from conversations.</p>
-      </div>
-
-      <div class="card">
-        <h3>Dynamic Web Forms</h3>
-        <p>Forms adapt to user language and inputs in real time.</p>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Unified Workflow Integration</h2>
-    <p>
-      Easy Intake connects customer interactions to structured outputs — enabling automation across your entire stack.
-    </p>
-
-    <div class="workflow">
-
-      <div class="flow-grid">
-        <div class="flow-item">PHONE</div>
-        <div class="flow-item">CRM SYNC</div>
-        <div class="flow-item">CHAT</div>
-        <div class="flow-item">PDF / FORMS</div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="cta">
-    <h3>Get Early Access</h3>
-    <p>Be first to learn more and join the private beta.</p>
-
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSewk721el3Blm8a0Ik5Pdrx4ahTBXfq8zA_AF_ZDWI1w__-7w/viewform" target="_blank">
-      <button>Request Access</button>
-    </a>
-  </div>
-
-  <div class="footer">
-    © 2026 Easy Intake
-  </div>
-
-</div>
+    <section class="py-20 bg-[#030712] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+            <div>
+                <h3 class="text-white font-bold mb-4">Any Channel</h3>
+                <p class="text-gray-500 text-sm">Capture data via phone, chat, or web forms effortlessly.</p>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4">Any Destination</h3>
+                <p class="text-gray-500 text-sm">Automatically populate CRM custom fields and proprietary databases.</p>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4">Global Reach</h3>
+                <p class="text-gray-500 text-sm">Empowering agents and agencies to scale globally without language barriers.</p>
+            </div>
+        </div>
+        <div class="mt-20 text-center text-gray-600 text-[10px] tracking-widest uppercase">
+            &copy; 2026 Easy Intake App. All Rights Reserved.
+        </div>
+    </section>
 
 </body>
 </html>
