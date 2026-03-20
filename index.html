@@ -21,14 +21,9 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
+        /* Modal Styles */
+        #formModal { display: none; }
+        #formModal.active { display: flex; }
     </style>
 </head>
 <body class="text-gray-200 antialiased">
@@ -41,15 +36,14 @@
             <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400">
                 <span class="hover:text-white transition cursor-default">Product</span>
                 <span class="hover:text-white transition cursor-default">Technology</span>
-                <span class="hover:text-white transition cursor-default">Multilingual</span>
             </div>
-            <div class="text-xs font-bold uppercase tracking-widest text-blue-400 border border-blue-400/30 px-4 py-2 rounded-full">
-                V1.0 Rolling Out
-            </div>
+            <button onclick="openModal()" class="text-xs font-bold uppercase tracking-widest text-red-500 border border-red-500/30 px-4 py-2 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300">
+                Join Beta
+            </button>
         </div>
     </nav>
 
-    <main class="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient pt-20">
+    <main class="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient pt-12">
         <div class="absolute inset-0 opacity-20">
             <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -61,8 +55,8 @@
             </svg>
         </div>
 
-        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div class="inline-block px-4 py-1.5 mb-6 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-blue-500/10 border border-blue-500/20 rounded-full">
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center mt-[-40px]">
+            <div class="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-blue-500/10 border border-blue-500/20 rounded-full">
                 The Future of Automated Data Capture
             </div>
             
@@ -74,7 +68,11 @@
                 Easy Intake is a multilingual web application that automates workflow and streamlines data capture from prospects, leads, and customers—<strong>in any language</strong>.
             </p>
 
-            <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-16">
+            <button onclick="openModal()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-5 px-12 rounded-full text-xl shadow-[0_0_30px_rgba(220,38,38,0.4)] transition-all transform hover:scale-105 active:scale-95 mb-16">
+                Request Early Access
+            </button>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
                 <div class="glass px-6 py-4 rounded-xl flex items-center space-x-3">
                     <span class="text-blue-400">⚡</span>
                     <span class="text-sm">Instant CRM Sync</span>
@@ -87,11 +85,6 @@
                     <span class="text-green-400">📄</span>
                     <span class="text-sm">PDF & API Ready</span>
                 </div>
-            </div>
-
-            <div class="inline-flex items-center space-x-4 glass p-2 pr-6 rounded-full">
-                <span class="bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full animate-pulse">UPDATE</span>
-                <span class="text-sm font-medium">More Information Coming Soon</span>
             </div>
         </div>
 
@@ -117,6 +110,29 @@
             &copy; 2026 Easy Intake App. All Rights Reserved.
         </div>
     </section>
+
+    <div id="formModal" class="fixed inset-0 z-[100] items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="relative w-full max-w-4xl bg-white rounded-2xl overflow-hidden shadow-2xl h-[90vh]">
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-full z-[110]">
+                ✕ Close
+            </button>
+            <div class="w-full h-full overflow-y-auto pt-12">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSewk721el3Blm8a0Ik5Pdrx4ahTBXfq8zA_AF_ZDWI1w__-7w/viewform?embedded=true" width="100%" height="1566" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('formModal');
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Stop scrolling behind modal
+        }
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+    </script>
 
 </body>
 </html>
