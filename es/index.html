@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Intake — Intake Multilingüe con IA para Legal, Seguros y Salud</title>
+    <meta name="description" content="Intake con IA multilingüe: captura español o cualquier idioma por voz, chat o formularios. Estructura datos para workflows legal, seguros, salud y vivienda." />
+    <link rel="canonical" href="https://easyintakeapp.com/es/" />
+    <meta property="og:title" content="Easy Intake — Intake Multilingüe con IA" />
+    <meta property="og:description" content="Input en español no estructurado → output en inglés estructurado. Intake con IA para legal, seguros, salud y vivienda." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <link rel="alternate" hreflang="en" href="https://easyintakeapp.com/" />
+    <link rel="alternate" hreflang="es" href="https://easyintakeapp.com/es/" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #030712; }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #030712 100%); }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .text-gradient { background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        #formModal { display: none; }
+        #formModal.active { display: flex; }
+    </style>
+</head>
+<body class="text-gray-200 antialiased">
+
+    <nav class="fixed top-0 w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-3">
+            <a href="/es/" class="flex items-center gap-2">
+                <img src="../assets/easy-intake-logo.png" alt="Easy Intake" class="h-8 hidden sm:block" />
+                <span class="text-xl font-extrabold tracking-tight text-white">EASY<span class="text-blue-500">INTAKE</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
+                <a href="/" class="hover:text-white transition">EN</a>
+                <a href="/es/" class="text-white">Inicio</a>
+                <a href="/es/technology/" class="hover:text-white transition">Tecnología</a>
+            </div>
+            <button onclick="openModal()" class="text-xs font-bold uppercase tracking-widest text-red-500 border border-red-500/30 px-4 py-2 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300">
+                Unirse al Beta
+            </button>
+        </div>
+    </nav>
+
+    <main class="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient pt-12">
+        <div class="absolute inset-0 opacity-20">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center mt-[-40px]">
+            <div class="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-blue-500/10 border border-blue-500/20 rounded-full">
+                El Futuro de la Captura Automatizada de Datos
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+                Intake Sin <br><span class="text-gradient">Límites.</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Easy Intake es una aplicación web multilingüe que automatiza el flujo de trabajo y agiliza la captura de datos de prospectos, leads y clientes—<strong>en cualquier idioma</strong>.
+            </p>
+
+            <button onclick="openModal()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-5 px-12 rounded-full text-xl shadow-[0_0_30px_rgba(220,38,38,0.4)] transition-all transform hover:scale-105 active:scale-95 mb-16">
+                Solicitar Acceso Anticipado
+            </button>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <div class="glass px-6 py-4 rounded-xl flex items-center space-x-3">
+                    <span class="text-blue-400">⚡</span>
+                    <span class="text-sm">Sincronización CRM Instantánea</span>
+                </div>
+                <div class="glass px-6 py-4 rounded-xl flex items-center space-x-3">
+                    <span class="text-purple-400">🌐</span>
+                    <span class="text-sm">Soporte Multilingüe</span>
+                </div>
+                <div class="glass px-6 py-4 rounded-xl flex items-center space-x-3">
+                    <span class="text-green-400">📄</span>
+                    <span class="text-sm">PDF y API Listos</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/20 blur-[120px] rounded-full"></div>
+    </main>
+
+    <section id="use-cases" class="py-20 bg-[#030712] border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl font-bold text-white mb-4 text-center">Casos de Uso de Intake con IA</h2>
+            <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Easy Intake transforma input no estructurado en español (o cualquier idioma) en output estructurado en inglés para sistemas legales, médicos, financieros y de seguros. Calificación, extracción de datos, estructura de cumplimiento — no solo traducción.</p>
+            <div class="space-y-4">
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Intake de Demandas Colectivas y Mass Tort</h3>
+                    <p class="text-gray-400 text-sm">Intake de alto volumen para silicosis, asbesto, dispositivos defectuosos, pesticidas. La IA captura historial de exposición, datos del empleador, cronología de síntomas — a menudo desordenado en español — y normaliza en formato listo para reclamación.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Evaluación Legal de Inmigración</h3>
+                    <p class="text-gray-400 text-sm">Intake en español hacia formularios en inglés (I-485, I-589). Evaluación de elegibilidad para asilo, visa U, visa T. La IA enruta a DIY o abogado según complejidad.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Lesiones Personales (Auto y Lugar de Trabajo)</h3>
+                    <p class="text-gray-400 text-sm">Víctimas hispanohablantes a menudo evitan abogados por barreras de idioma. La IA captura detalles del accidente, lesiones, info de seguros y genera resúmenes de caso.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Intake de Seguros de Vida y Salud</h3>
+                    <p class="text-gray-400 text-sm">Para familias indocumentadas o de estatus mixto. La IA recopila info de salud, beneficiarios, ingresos en español y normaliza para subscripción de aseguradoras.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Reclamaciones de Seguros Auto y Propiedad</h3>
+                    <p class="text-gray-400 text-sm">Voz → datos estructurados de reclamación. Intake de daños, inventario de pérdidas. Crítico para conductores y propietarios hispanohablantes en regiones de alto riesgo.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Mantenimiento de Inquilinos y Problemas de Vivienda</h3>
+                    <p class="text-gray-400 text-sm">Inquilinos reportan por voz o SMS ("no hay agua caliente"). La IA convierte en tickets de mantenimiento estructurados en inglés. Reclamaciones de habitabilidad: moho, vivienda insegura.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Salud e Inscripción Medicaid / ACA</h3>
+                    <p class="text-gray-400 text-sm">Intake pre-visita para clínicas y FQHC. Medicaid/ACA: info del hogar, ingresos, evaluación de elegibilidad en español. TurboTax para inscripción en salud.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-[#030712] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+            <div>
+                <h3 class="text-white font-bold mb-4">Cualquier Canal</h3>
+                <p class="text-gray-500 text-sm">Captura datos por teléfono, chat o formularios web sin esfuerzo.</p>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4">Cualquier Destino</h3>
+                <p class="text-gray-500 text-sm">Llena automáticamente campos personalizados del CRM y bases de datos propietarias.</p>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4">Alcance Global</h3>
+                <p class="text-gray-500 text-sm">Empoderando a agentes y agencias para escalar globalmente sin barreras de idioma.</p>
+            </div>
+        </div>
+        <div class="mt-20 text-center text-gray-600 text-[10px] tracking-widest uppercase">
+            <a href="/es/" class="hover:text-gray-400">Inicio</a> &bull; <a href="/es/technology/" class="hover:text-gray-400">Tecnología</a> &bull; &copy; 2026 Easy Intake App.
+        </div>
+    </section>
+
+    <div id="formModal" class="fixed inset-0 z-[100] items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="relative w-full max-w-4xl bg-white rounded-2xl overflow-hidden shadow-2xl h-[90vh]">
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-full z-[110]">
+                ✕ Cerrar
+            </button>
+            <div class="w-full h-full overflow-y-auto pt-12">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSewk721el3Blm8a0Ik5Pdrx4ahTBXfq8zA_AF_ZDWI1w__-7w/viewform?embedded=true" width="100%" height="1566" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('formModal');
+        function openModal() { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal() { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
+    </script>
+
+</body>
+</html>

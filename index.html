@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easy Intake | Automate Data Capture Anywhere</title>
+    <title>Easy Intake — Multilingual AI Intake for Legal, Insurance & Healthcare</title>
+    <meta name="description" content="AI-powered multilingual intake: capture Spanish or any language via voice, chat, or forms. Auto-structure data for legal, insurance, healthcare, and housing workflows." />
+    <link rel="canonical" href="https://easyintakeapp.com/" />
+    <meta property="og:title" content="Easy Intake — Multilingual AI Intake" />
+    <meta property="og:description" content="Unstructured Spanish input → structured English output. AI intake for legal, insurance, healthcare, and housing." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <link rel="alternate" hreflang="en" href="https://easyintakeapp.com/" />
+    <link rel="alternate" hreflang="es" href="https://easyintakeapp.com/es/" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -22,20 +30,22 @@
             -webkit-text-fill-color: transparent;
         }
         /* Modal Styles */
-        #formModal { display: none; }
-        #formModal.active { display: flex; }
+        #formModal { display: none !important; }
+        #formModal.active { display: flex !important; }
     </style>
 </head>
 <body class="text-gray-200 antialiased">
 
     <nav class="fixed top-0 w-full z-50 px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-3">
-            <div class="text-xl font-extrabold tracking-tight text-white">
-                EASY<span class="text-blue-500">INTAKE</span>
-            </div>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400">
-                <span class="hover:text-white transition cursor-default">Product</span>
-                <span class="hover:text-white transition cursor-default">Technology</span>
+            <a href="/" class="flex items-center gap-2">
+                <img src="assets/easy-intake-logo.png" alt="Easy Intake" class="h-8 hidden sm:block" />
+                <span class="text-xl font-extrabold tracking-tight text-white">EASY<span class="text-blue-500">INTAKE</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
+                <a href="/" class="hover:text-white transition">Home</a>
+                <a href="/technology/" class="hover:text-white transition">Technology</a>
+                <a href="/es/" class="hover:text-white transition">ES</a>
             </div>
             <button onclick="openModal()" class="text-xs font-bold uppercase tracking-widest text-red-500 border border-red-500/30 px-4 py-2 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300">
                 Join Beta
@@ -91,6 +101,43 @@
         <div class="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/20 blur-[120px] rounded-full"></div>
     </main>
 
+    <section id="use-cases" class="py-20 bg-[#030712] border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl font-bold text-white mb-4 text-center">AI Intake Use Cases</h2>
+            <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Easy Intake transforms unstructured Spanish (or any language) input into structured English output for legal, medical, financial, and insurance systems. Qualification, data extraction, compliance structuring — not just translation.</p>
+            <div class="space-y-4">
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Mass Tort & Class Action Intake</h3>
+                    <p class="text-gray-400 text-sm">High-volume intake for silicosis, asbestos, defective devices, pesticides. AI captures exposure history, employer details, symptoms timeline — often messy in Spanish — and normalizes into claim-ready format.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Immigration Legal Screening</h3>
+                    <p class="text-gray-400 text-sm">Spanish intake into English forms (I-485, I-589). Eligibility screening for asylum, U visa, T visa. AI routes to DIY or attorney based on complexity.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Personal Injury (Auto & Workplace)</h3>
+                    <p class="text-gray-400 text-sm">Spanish-speaking accident victims often avoid lawyers due to language barriers. AI captures accident details, injuries, insurance info and auto-generates case summaries.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Life & Health Insurance Intake</h3>
+                    <p class="text-gray-400 text-sm">For undocumented or mixed-status families. AI collects health info, beneficiaries, income in Spanish and normalizes for carrier underwriting.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Auto & Property Insurance Claims</h3>
+                    <p class="text-gray-400 text-sm">Voice → structured claim data. Damage intake, loss inventory. Critical for Spanish-speaking drivers and property owners in high-risk regions.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Tenant Maintenance & Housing Issues</h3>
+                    <p class="text-gray-400 text-sm">Tenants report via voice or SMS ("no hay agua caliente"). AI converts to structured maintenance tickets in English. Habitability claims: mold, unsafe housing.</p>
+                </article>
+                <article class="glass p-6 rounded-xl border-l-4 border-blue-500">
+                    <h3 class="text-white font-semibold mb-2">Healthcare & Medicaid / ACA Enrollment</h3>
+                    <p class="text-gray-400 text-sm">Pre-visit intake for clinics and FQHCs. Medicaid/ACA: household info, income, eligibility screening in Spanish. TurboTax for healthcare enrollment.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <section class="py-20 bg-[#030712] border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
             <div>
@@ -107,7 +154,7 @@
             </div>
         </div>
         <div class="mt-20 text-center text-gray-600 text-[10px] tracking-widest uppercase">
-            &copy; 2026 Easy Intake App. All Rights Reserved.
+            <a href="/" class="hover:text-gray-400">Home</a> &bull; <a href="/technology/" class="hover:text-gray-400">Technology</a> &bull; &copy; 2026 Easy Intake App.
         </div>
     </section>
 
