@@ -49,26 +49,32 @@
             visibility: hidden;
             clip-path: inset(0 100% 0 0);
             pointer-events: none;
+            transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                clip-path 1.05s cubic-bezier(0.2, 0.82, 0.28, 1),
+                visibility 0s linear 0.9s;
         }
         #journey-svg-mount svg [data-jmap-row]:not([data-jmap-row="0"]).jmap-unlocked {
             opacity: 1;
             visibility: visible;
             clip-path: inset(0 0 0 0);
             pointer-events: auto;
-            transition: opacity 0.4s ease, clip-path 0.55s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s;
+            transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                clip-path 1.05s cubic-bezier(0.2, 0.82, 0.28, 1),
+                visibility 0s linear 0s;
         }
         #journey-svg-mount svg [data-jmap-row="0"] .jmap-col {
             opacity: 0;
-            transform: translateX(-18px);
+            transform: translateX(-12px);
+            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.8s cubic-bezier(0.2, 0.82, 0.28, 1);
         }
         #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col {
             opacity: 1;
             transform: translateX(0);
-            transition: opacity 0.42s ease, transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
         }
         #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="0"] { transition-delay: 0s; }
-        #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="1"] { transition-delay: 0.12s; }
-        #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="2"] { transition-delay: 0.24s; }
+        #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="1"] { transition-delay: 0.1s; }
+        #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="2"] { transition-delay: 0.22s; }
 
         @keyframes journey-cue-nudge {
             0%, 100% { transform: translateY(0); opacity: 0.85; }
@@ -218,7 +224,6 @@
 
             function bindScrollUnlock(rows) {
                 var n = rows.length;
-                var maxIdx = 0;
                 var ticking = false;
                 function apply() {
                     ticking = false;
@@ -233,11 +238,11 @@
                     var raw = (viewBottom - startReveal) / span;
                     var t = Math.max(0, Math.min(1, raw));
                     var idx = Math.min(n - 1, Math.floor(t * n));
-                    maxIdx = Math.max(maxIdx, idx);
                     for (var i = 0; i < n; i++) {
-                        if (i <= maxIdx) rows[i].classList.add('jmap-unlocked');
+                        if (i <= idx) rows[i].classList.add('jmap-unlocked');
+                        else rows[i].classList.remove('jmap-unlocked');
                     }
-                    if (maxIdx >= n - 1) {
+                    if (idx >= n - 1) {
                         if (hint) hint.style.opacity = '0.45';
                         if (scrollCue) scrollCue.classList.add('journey-scroll-cue--dismissed');
                     } else {
