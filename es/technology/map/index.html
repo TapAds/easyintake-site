@@ -69,6 +69,40 @@
         #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="0"] { transition-delay: 0s; }
         #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="1"] { transition-delay: 0.12s; }
         #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="2"] { transition-delay: 0.24s; }
+
+        @keyframes journey-cue-nudge {
+            0%, 100% { transform: translateY(0); opacity: 0.85; }
+            50% { transform: translateY(6px); opacity: 1; }
+        }
+        .journey-scroll-cue {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            padding: 1.75rem 1rem 1rem;
+            background: linear-gradient(to top, rgba(7, 11, 20, 0.97) 0%, rgba(7, 11, 20, 0.55) 45%, transparent 100%);
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .journey-scroll-cue--dismissed {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .journey-scroll-cue__inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .journey-scroll-cue__chevron {
+            width: 1.35rem;
+            height: 1.35rem;
+            color: rgba(96, 165, 250, 0.9);
+            animation: journey-cue-nudge 1.65s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="text-gray-200 antialiased">
@@ -98,9 +132,17 @@
 
         <div class="max-w-6xl mx-auto px-4 sm:px-6 mb-20">
             <figure class="glass rounded-2xl p-4 sm:p-6 overflow-hidden reveal" data-reveal>
-                <p class="text-center text-gray-500 text-xs mb-4 journey-scroll-hint">Desplázate: cada fila del recorrido aparece en orden (en la primera fila, las columnas entran de izquierda a derecha).</p>
+                <p class="text-center text-gray-400 text-sm mb-3 journey-scroll-hint">Desplázate por el diagrama: cada fase aparece al avanzar. La primera fila se anima de izquierda a derecha.</p>
                 <div class="journey-diagram-wrap relative rounded-lg bg-[#070b14]" id="journey-diagram-wrap">
                     <div id="journey-svg-mount" aria-busy="true"></div>
+                    <div class="journey-scroll-cue" id="journey-scroll-cue" aria-hidden="true">
+                        <div class="journey-scroll-cue__inner">
+                            <span class="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-300/95">Desplázate para ver el flujo completo</span>
+                            <svg class="journey-scroll-cue__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                    </div>
                     <p id="journey-svg-fail" class="hidden text-center text-red-400/90 text-sm py-10 px-4">No se pudo cargar el diagrama. Actualiza la página.</p>
                 </div>
                 <figcaption class="text-center text-gray-500 text-xs mt-4">Flujo de punta a punta del lead con Easy Intake.</figcaption>
@@ -171,6 +213,7 @@
             var wrap = document.getElementById('journey-diagram-wrap');
             var fail = document.getElementById('journey-svg-fail');
             var hint = document.querySelector('.journey-scroll-hint');
+            var scrollCue = document.getElementById('journey-scroll-cue');
             if (!mount || !wrap) return;
 
             function bindScrollUnlock(rows) {
@@ -194,8 +237,13 @@
                     for (var i = 0; i < n; i++) {
                         if (i <= maxIdx) rows[i].classList.add('jmap-unlocked');
                     }
-                    if (maxIdx >= n - 1 && hint) hint.style.opacity = '0.45';
-                    else if (hint) hint.style.opacity = '';
+                    if (maxIdx >= n - 1) {
+                        if (hint) hint.style.opacity = '0.45';
+                        if (scrollCue) scrollCue.classList.add('journey-scroll-cue--dismissed');
+                    } else {
+                        if (hint) hint.style.opacity = '';
+                        if (scrollCue) scrollCue.classList.remove('journey-scroll-cue--dismissed');
+                    }
                 }
                 function onScroll() {
                     if (!ticking) {
@@ -227,6 +275,7 @@
                     mount.innerHTML = '';
                     mount.removeAttribute('aria-busy');
                     if (fail) fail.classList.remove('hidden');
+                    if (scrollCue) scrollCue.classList.add('journey-scroll-cue--dismissed');
                 });
         })();
     </script>
