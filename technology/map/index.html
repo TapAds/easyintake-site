@@ -35,13 +35,40 @@
         .reveal-delay-4 { transition-delay: 0.32s; }
         .reveal-delay-5 { transition-delay: 0.4s; }
 
-        .journey-waterfall {
-            will-change: clip-path;
-            clip-path: inset(0 0 82% 0);
+        .journey-diagram-wrap {
+            min-height: 12rem;
         }
-        .journey-waterfall.is-fully-revealed {
+        #journey-svg-mount svg {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+        }
+        #journey-svg-mount svg [data-jmap-row]:not([data-jmap-row="0"]) {
+            opacity: 0;
+            visibility: hidden;
+            clip-path: inset(0 100% 0 0);
+            pointer-events: none;
+        }
+        #journey-svg-mount svg [data-jmap-row]:not([data-jmap-row="0"]).jmap-unlocked {
+            opacity: 1;
+            visibility: visible;
             clip-path: inset(0 0 0 0);
+            pointer-events: auto;
+            transition: opacity 0.4s ease, clip-path 0.55s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s;
         }
+        #journey-svg-mount svg [data-jmap-row="0"] .jmap-col {
+            opacity: 0;
+            transform: translateX(-18px);
+        }
+        #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.42s ease, transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="0"] { transition-delay: 0s; }
+        #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="1"] { transition-delay: 0.12s; }
+        #journey-svg-mount svg [data-jmap-row="0"].jmap-unlocked .jmap-col[data-jmap-col="2"] { transition-delay: 0.24s; }
     </style>
 </head>
 <body class="text-gray-200 antialiased">
@@ -71,17 +98,10 @@
 
         <div class="max-w-6xl mx-auto px-4 sm:px-6 mb-20">
             <figure class="glass rounded-2xl p-4 sm:p-6 overflow-hidden reveal" data-reveal>
-                <p class="text-center text-gray-500 text-xs mb-4 journey-scroll-hint">Scroll down to reveal the rest of the journey.</p>
-                <div class="journey-waterfall relative rounded-lg bg-[#070b14]">
-                    <img
-                        src="/assets/complete_lead_journey_website.svg"
-                        alt="Lead journey: channels through AI intake to CRM and outputs"
-                        class="w-full max-w-full h-auto block mx-auto"
-                        width="680"
-                        height="1300"
-                        decoding="async"
-                        loading="lazy"
-                    />
+                <p class="text-center text-gray-500 text-xs mb-4 journey-scroll-hint">Scroll down: each row of the journey appears in order (columns sweep left to right on the first row).</p>
+                <div class="journey-diagram-wrap relative rounded-lg bg-[#070b14]" id="journey-diagram-wrap">
+                    <div id="journey-svg-mount" aria-busy="true"></div>
+                    <p id="journey-svg-fail" class="hidden text-center text-red-400/90 text-sm py-10 px-4">The diagram could not be loaded. Please refresh the page.</p>
                 </div>
                 <figcaption class="text-center text-gray-500 text-xs mt-4">End-to-end lead flow with Easy Intake.</figcaption>
             </figure>
@@ -147,38 +167,67 @@
             nodes.forEach(function (el) { io.observe(el); });
         })();
         (function () {
-            var wrap = document.querySelector('.journey-waterfall');
+            var mount = document.getElementById('journey-svg-mount');
+            var wrap = document.getElementById('journey-diagram-wrap');
+            var fail = document.getElementById('journey-svg-fail');
             var hint = document.querySelector('.journey-scroll-hint');
-            if (!wrap) return;
-            var ticking = false;
-            function update() {
-                ticking = false;
-                var rect = wrap.getBoundingClientRect();
-                var vh = window.innerHeight || 1;
-                var travel = rect.height + vh * 0.55;
-                var t = (vh * 0.88 - rect.top) / travel;
-                t = Math.max(0, Math.min(1, t));
-                var visible = 0.18 + t * 0.82;
-                var bottomClip = (1 - visible) * 100;
-                wrap.style.clipPath = 'inset(0 0 ' + bottomClip.toFixed(2) + '% 0)';
-                if (visible >= 0.995) {
-                    wrap.style.clipPath = 'none';
-                    wrap.classList.add('is-fully-revealed');
-                    if (hint) hint.style.opacity = '0.5';
-                } else {
-                    wrap.classList.remove('is-fully-revealed');
-                    if (hint) hint.style.opacity = '';
+            if (!mount || !wrap) return;
+
+            function bindScrollUnlock(rows) {
+                var n = rows.length;
+                var maxIdx = 0;
+                var ticking = false;
+                function apply() {
+                    ticking = false;
+                    var rect = wrap.getBoundingClientRect();
+                    var vh = window.innerHeight || 1;
+                    var scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+                    var wrapTopDoc = rect.top + scrollY;
+                    var wrapH = Math.max(1, rect.height);
+                    var viewBottom = scrollY + vh * 0.88;
+                    var startReveal = wrapTopDoc + vh * 0.12;
+                    var span = wrapH + vh * 0.72;
+                    var raw = (viewBottom - startReveal) / span;
+                    var t = Math.max(0, Math.min(1, raw));
+                    var idx = Math.min(n - 1, Math.floor(t * n));
+                    maxIdx = Math.max(maxIdx, idx);
+                    for (var i = 0; i < n; i++) {
+                        if (i <= maxIdx) rows[i].classList.add('jmap-unlocked');
+                    }
+                    if (maxIdx >= n - 1 && hint) hint.style.opacity = '0.45';
+                    else if (hint) hint.style.opacity = '';
                 }
-            }
-            function onScroll() {
-                if (!ticking) {
-                    ticking = true;
-                    requestAnimationFrame(update);
+                function onScroll() {
+                    if (!ticking) {
+                        ticking = true;
+                        requestAnimationFrame(apply);
+                    }
                 }
+                rows[0].classList.add('jmap-unlocked');
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(apply);
+                });
+                window.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', onScroll, { passive: true });
             }
-            update();
-            window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', onScroll, { passive: true });
+
+            fetch('/assets/complete_lead_journey_website.svg', { credentials: 'same-origin' })
+                .then(function (r) { if (!r.ok) throw new Error('svg'); return r.text(); })
+                .then(function (html) {
+                    mount.innerHTML = html;
+                    mount.removeAttribute('aria-busy');
+                    var svg = mount.querySelector('svg');
+                    if (!svg) throw new Error('nosvg');
+                    svg.setAttribute('role', 'img');
+                    svg.setAttribute('aria-label', 'Lead journey from channels through AI intake to CRM and outputs');
+                    var rows = svg.querySelectorAll('[data-jmap-row]');
+                    if (rows.length) bindScrollUnlock(rows);
+                })
+                .catch(function () {
+                    mount.innerHTML = '';
+                    mount.removeAttribute('aria-busy');
+                    if (fail) fail.classList.remove('hidden');
+                });
         })();
     </script>
 </body>
