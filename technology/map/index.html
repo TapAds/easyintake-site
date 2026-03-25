@@ -34,6 +34,14 @@
         .reveal-delay-3 { transition-delay: 0.24s; }
         .reveal-delay-4 { transition-delay: 0.32s; }
         .reveal-delay-5 { transition-delay: 0.4s; }
+
+        .journey-waterfall {
+            will-change: clip-path;
+            clip-path: inset(0 0 82% 0);
+        }
+        .journey-waterfall.is-fully-revealed {
+            clip-path: inset(0 0 0 0);
+        }
     </style>
 </head>
 <body class="text-gray-200 antialiased">
@@ -63,15 +71,18 @@
 
         <div class="max-w-6xl mx-auto px-4 sm:px-6 mb-20">
             <figure class="glass rounded-2xl p-4 sm:p-6 overflow-hidden reveal" data-reveal>
-                <img
-                    src="/assets/complete_lead_journey_website.svg"
-                    alt="Lead journey: channels through AI intake to CRM and outputs"
-                    class="w-full max-w-full h-auto block mx-auto"
-                    width="680"
-                    height="1300"
-                    decoding="async"
-                    loading="lazy"
-                />
+                <p class="text-center text-gray-500 text-xs mb-4 journey-scroll-hint">Scroll down to reveal the rest of the journey.</p>
+                <div class="journey-waterfall relative rounded-lg bg-[#070b14]">
+                    <img
+                        src="/assets/complete_lead_journey_website.svg"
+                        alt="Lead journey: channels through AI intake to CRM and outputs"
+                        class="w-full max-w-full h-auto block mx-auto"
+                        width="680"
+                        height="1300"
+                        decoding="async"
+                        loading="lazy"
+                    />
+                </div>
                 <figcaption class="text-center text-gray-500 text-xs mt-4">End-to-end lead flow with Easy Intake.</figcaption>
             </figure>
         </div>
@@ -134,6 +145,40 @@
                 });
             }, { root: null, rootMargin: '0px 0px -6% 0px', threshold: 0.08 });
             nodes.forEach(function (el) { io.observe(el); });
+        })();
+        (function () {
+            var wrap = document.querySelector('.journey-waterfall');
+            var hint = document.querySelector('.journey-scroll-hint');
+            if (!wrap) return;
+            var ticking = false;
+            function update() {
+                ticking = false;
+                var rect = wrap.getBoundingClientRect();
+                var vh = window.innerHeight || 1;
+                var travel = rect.height + vh * 0.55;
+                var t = (vh * 0.88 - rect.top) / travel;
+                t = Math.max(0, Math.min(1, t));
+                var visible = 0.18 + t * 0.82;
+                var bottomClip = (1 - visible) * 100;
+                wrap.style.clipPath = 'inset(0 0 ' + bottomClip.toFixed(2) + '% 0)';
+                if (visible >= 0.995) {
+                    wrap.style.clipPath = 'none';
+                    wrap.classList.add('is-fully-revealed');
+                    if (hint) hint.style.opacity = '0.5';
+                } else {
+                    wrap.classList.remove('is-fully-revealed');
+                    if (hint) hint.style.opacity = '';
+                }
+            }
+            function onScroll() {
+                if (!ticking) {
+                    ticking = true;
+                    requestAnimationFrame(update);
+                }
+            }
+            update();
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll, { passive: true });
         })();
     </script>
 </body>
