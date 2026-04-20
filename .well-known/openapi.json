@@ -1,0 +1,77 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Easy Intake partner webhook (public overview)",
+    "version": "1.2.4",
+    "description": "Public overview of the intake webhook used by integrated partners (e.g. lead portals). Authentication uses a shared secret header agreed during onboarding. This document summarizes the public surface only; full field-level contracts are maintained with integration partners.\n\nWeb application (dashboard): https://app.easyintakeapp.com/\nIntake API (this webhook): https://api.easyintakeapp.com/\nMarketing site: https://easyintakeapp.com"
+  },
+  "servers": [
+    {
+      "url": "https://api.easyintakeapp.com",
+      "description": "Intake engine API host (webhooks and partner integrations)"
+    }
+  ],
+  "paths": {
+    "/api/webhooks/intake": {
+      "post": {
+        "summary": "Partner intake webhook",
+        "description": "Receives JSON events (for example lead capture and prequalification updates) for intake processing and CRM workflows including GoHighLevel.",
+        "operationId": "postIntakeWebhook",
+        "parameters": [
+          {
+            "name": "X-Webhook-Secret",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Shared secret provisioned for the partner integration (rotated out of band)."
+          },
+          {
+            "name": "X-Source",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Logical sender identifier (e.g. partner id)."
+          },
+          {
+            "name": "X-GHL-Location-Id",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Optional GoHighLevel sub-account id when multiple agency locations share one API configuration."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "event": {
+                    "type": "string",
+                    "description": "Event name (examples: lead.captured, prequal.completed)."
+                  },
+                  "timestamp": { "type": "string", "format": "date-time" },
+                  "source": { "type": "string" },
+                  "vertical": { "type": "string" },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "description": "Event payload including lead identifiers and funnel data."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Event accepted for processing" },
+          "401": { "description": "Missing or invalid webhook secret" },
+          "422": { "description": "Request validation error" },
+          "500": { "description": "Server error (for example multi-tenant resolution)" }
+        }
+      }
+    }
+  }
+}

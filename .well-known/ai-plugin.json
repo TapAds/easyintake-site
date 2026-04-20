@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Easy Intake",
+  "name_for_model": "easy_intake",
+  "description_for_human": "Easy Intake is multilingual AI intake for agencies and professional teams: capture Spanish or other languages via voice, SMS, WhatsApp, and chat, then structure data for CRMs like GoHighLevel, PDFs, and workflows.",
+  "description_for_model": "Easy Intake: marketing at easyintakeapp.com; web app at app.easyintakeapp.com; intake API at api.easyintakeapp.com. Partner-facing JSON webhooks for intake events — use the public OpenAPI URL on easyintakeapp.com/.well-known/openapi.json for the webhook shape. Pricing and access are via beta signup; tenant APIs require authentication.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://easyintakeapp.com/.well-known/openapi.json"
+  },
+  "legal_info_url": "https://easyintakeapp.com/terms/",
+  "contact_email": "support@easyintakeapp.com"
+}

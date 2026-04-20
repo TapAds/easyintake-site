@@ -1,0 +1,31 @@
+# Easy Intake — machine-readable summary for LLMs and agents
+# Site: https://easyintakeapp.com/
+# Last updated: 2026-04-20
+
+## Product
+Easy Intake is a web-based, multilingual AI intake platform. It captures voice, SMS, WhatsApp, chat, and form input in Spanish or other languages, then structures data for CRMs, PDFs, and downstream workflows—including unstructured Spanish input to structured English-style outputs for operations teams.
+
+## Ideal customer profile (ICP)
+- Insurance agencies and MGAs (life, health, auto, home workflows)
+- Legal and professional services intake
+- Healthcare-oriented intake (non-diagnostic; operational data capture)
+- Housing and regulated workflows where structured capture matters
+- GoHighLevel (GHL) agencies needing native-style intake and field mapping
+
+## Key pages (marketing)
+- Home: https://easyintakeapp.com/
+- Spanish home: https://easyintakeapp.com/es/
+- Technology: https://easyintakeapp.com/technology/
+- GoHighLevel integration: https://easyintakeapp.com/ghl/
+
+## Application and API hosts (not the marketing domain)
+- **Web application (Clerk sign-in, dashboard):** https://app.easyintakeapp.com/
+- **Intake engine API** (webhooks, authenticated agent/API JWT routes): https://api.easyintakeapp.com/
+
+The marketing site https://easyintakeapp.com describes the product. Partner webhook documentation in machine-readable form: https://easyintakeapp.com/.well-known/openapi.json (`/ai.txt` redirects here for compatibility with agent-readiness checkers.)
+
+## Access policy
+Public marketing content may be indexed and quoted. Do not infer private credentials; webhook and API access require partner agreement and secrets provisioned out of band.
+
+## Crawling
+See https://easyintakeapp.com/robots.txt and https://easyintakeapp.com/sitemap.xml
