@@ -205,7 +205,7 @@ ${hreflangBlock}
 </html>`;
 }
 
-const BASE = "https://www.easyintakeapp.com";
+const BASE = "https://easyintakeapp.com";
 
 if (!fs.existsSync(termsPath)) {
   console.error("Missing canonical terms JSON at:", termsPath);

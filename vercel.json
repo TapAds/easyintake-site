@@ -5,12 +5,6 @@
       "source": "/ai.txt",
       "destination": "/llms.txt",
       "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.easyintakeapp.com" }],
-      "destination": "https://easyintakeapp.com/:path*",
-      "permanent": true
     }
   ]
 }

@@ -195,7 +195,7 @@ ${hreflangBlock}
 </html>`;
 }
 
-const BASE = "https://www.easyintakeapp.com";
+const BASE = "https://easyintakeapp.com";
 
 if (!fs.existsSync(privacyPath)) {
   console.error("Missing canonical privacy JSON at:", privacyPath);
