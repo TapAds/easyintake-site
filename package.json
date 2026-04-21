@@ -1,0 +1,9 @@
+{
+  "name": "easy-intake-site",
+  "private": true,
+  "scripts": {
+    "build:terms": "node scripts/build-terms-page.mjs",
+    "build:privacy": "node scripts/build-privacy-page.mjs",
+    "build:legal": "npm run build:terms && npm run build:privacy"
+  }
+}

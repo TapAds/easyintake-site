@@ -1,0 +1,6 @@
+# https://easyintakeapp.com — Easy Intake marketing site
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://easyintakeapp.com/sitemap.xml
