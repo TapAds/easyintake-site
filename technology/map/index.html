@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
     <title>Lead Journey Map — Easy Intake | Technology</title>
     <meta name="description" content="How leads move from first touch through structured intake to CRM and downstream systems — the Easy Intake journey map." />
     <link rel="canonical" href="https://easyintakeapp.com/technology/map/" />
@@ -82,8 +84,6 @@
         }
         .journey-scroll-cue {
             pointer-events: none;
-            display: flex;
-            justify-content: center;
             padding: 0.35rem 0 0.85rem;
             margin-bottom: 0.25rem;
             transition: opacity 0.45s ease, visibility 0.45s ease, max-height 0.45s ease, margin 0.45s ease, padding 0.45s ease;
@@ -110,6 +110,22 @@
             height: 1.35rem;
             color: rgba(96, 165, 250, 0.9);
             animation: journey-cue-nudge 1.65s ease-in-out infinite;
+        }
+        /* Scroll-reveal hides rows with opacity 0 but SVG keeps full height — reads as a black void on narrow screens. */
+        @media (max-width: 767px) {
+            #journey-svg-mount svg [data-jmap-row] {
+                opacity: 1 !important;
+                visibility: visible !important;
+                clip-path: none !important;
+                pointer-events: auto !important;
+            }
+            #journey-svg-mount svg [data-jmap-row="0"] .jmap-col {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            #journey-svg-mount svg {
+                max-height: none;
+            }
         }
     </style>
 </head>
@@ -139,9 +155,9 @@
         </div>
 
         <div class="max-w-6xl mx-auto px-4 sm:px-6 mb-20">
-            <figure class="glass rounded-2xl p-4 sm:p-6 overflow-hidden reveal" data-reveal>
-                <p class="text-center text-gray-400 text-sm mb-3 journey-scroll-hint">Scroll down through the diagram — each phase appears as you go. The first row animates left to right.</p>
-                <div class="journey-scroll-cue" id="journey-scroll-cue" aria-hidden="true">
+            <figure class="glass rounded-2xl p-3 sm:p-6 overflow-visible md:overflow-hidden reveal" data-reveal>
+                <p class="text-center text-gray-500 text-xs mb-2 md:hidden">Full journey map below — scroll to explore.</p>
+                <div class="journey-scroll-cue hidden md:flex md:justify-center" id="journey-scroll-cue" aria-hidden="true">
                     <div class="journey-scroll-cue__inner">
                         <span class="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-300/95">Scroll for the full flow</span>
                         <svg class="journey-scroll-cue__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -167,7 +183,7 @@
                 </article>
                 <article class="glass p-6 rounded-xl border-l-4 border-blue-500 reveal reveal-delay-1" data-reveal>
                     <h3 class="text-white font-semibold mb-2">2. Data gathering</h3>
-                    <p class="text-gray-400 text-sm">Completeness scoring, agent review (HITL), self-service links, and reminder sequences.</p>
+                    <p class="text-gray-400 text-sm">Completeness scoring, agent review (HITL), self-serve completion, and reminder sequences.</p>
                 </article>
                 <article class="glass p-6 rounded-xl border-l-4 border-blue-500 reveal reveal-delay-2" data-reveal>
                     <h3 class="text-white font-semibold mb-2">3. Documents</h3>
@@ -193,11 +209,45 @@
         </div>
     </main>
 
-    <section class="py-12 bg-[#030712] border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6 text-center text-gray-600 text-[10px] tracking-widest uppercase">
-            <a href="/" class="hover:text-gray-400">Home</a> &bull; <a href="/technology/" class="hover:text-gray-400">Technology</a> &bull; <a href="/#use-cases" class="hover:text-gray-400">Use Cases</a> &bull; &copy; 2026 Easy Intake App.
+    <footer class="border-t border-white/10 py-8 px-6 bg-[#030712]">
+        <div class="max-w-7xl mx-auto space-y-6">
+            <div class="ask-ai-footer border border-white/10 rounded-2xl px-5 py-5 mb-6 bg-white/[0.02] text-center max-w-2xl mx-auto w-full">
+            <p class="text-white text-sm font-semibold tracking-tight mb-1">Ask AI about Easy Intake</p>
+            <p class="text-gray-500 text-xs leading-relaxed mb-4">Same factual prompt every time—grounded in easyintakeapp.com—so you get an on-topic summary. Claude copies the prompt to your clipboard, then opens claude.ai (paste with ⌘V or Ctrl+V).</p>
+            <div class="flex flex-wrap justify-center items-center gap-5">
+            <a class="text-slate-400 hover:text-white transition-colors" href="https://chatgpt.com/?hints=search&amp;q=Based%20on%20https%3A%2F%2Feasyintakeapp.com%2F%20and%20https%3A%2F%2Feasyintakeapp.com%2Fghl%2F%2C%20summarize%20Easy%20Intake%20in%204%20bullet%20points%3A%20what%20it%20is%2C%20ideal%20customers%20(including%20GoHighLevel%20agencies%20and%20Spanish%2FEnglish%20workflows)%2C%20channels%20supported%20(voice%2C%20SMS%2C%20WhatsApp%2C%20chat%2C%20forms)%2C%20and%20outputs%20(CRM%20fields%2C%20PDF%2C%20API).%20Do%20not%20invent%20pricing%3B%20say%20access%20is%20via%20beta%20or%20demo%20if%20not%20published." target="_blank" rel="noopener noreferrer" aria-label="Ask ChatGPT about Easy Intake" title="ChatGPT — prefilled prompt">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 5.18a5.992 5.992 0 0 0-3.998 2.9 6.056 6.056 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.056 6.056 0 0 0 6.515 2.899A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.746-7.09zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.07.07 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.77.77 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zm-1.215-7.365a4.485 4.485 0 0 1 2.366-1.973V11.49a.78.78 0 0 0 .388.671l5.843 3.375-2.02 1.168a.076.076 0 0 1-.073 0l-4.83-2.786A4.504 4.504 0 0 1 2.385 10.94zm16.598 3.855l-5.862-3.387L15.142 9.8a.076.076 0 0 1 .073 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.783-2.759a.788.788 0 0 0-.785 0L9.409 10.59 7.39 9.422a.072.072 0 0 1-.038-.051V3.788a4.502 4.502 0 0 1 8.085-3.087 4.497 4.497 0 0 1 1.662 3.086zm-15.063-4.482 5.863 3.392-2.02 1.168a.076.076 0 0 1-.073 0L3.598 7.56a4.493 4.493 0 0 1 8.08-3.087h.002a4.502 4.502 0 0 1-1.662 3.087z"/></svg>
+            </a>
+            <a class="text-slate-400 hover:text-white transition-colors" href="https://www.perplexity.ai/search/new?q=Based%20on%20https%3A%2F%2Feasyintakeapp.com%2F%20and%20https%3A%2F%2Feasyintakeapp.com%2Fghl%2F%2C%20summarize%20Easy%20Intake%20in%204%20bullet%20points%3A%20what%20it%20is%2C%20ideal%20customers%20(including%20GoHighLevel%20agencies%20and%20Spanish%2FEnglish%20workflows)%2C%20channels%20supported%20(voice%2C%20SMS%2C%20WhatsApp%2C%20chat%2C%20forms)%2C%20and%20outputs%20(CRM%20fields%2C%20PDF%2C%20API).%20Do%20not%20invent%20pricing%3B%20say%20access%20is%20via%20beta%20or%20demo%20if%20not%20published." target="_blank" rel="noopener noreferrer" aria-label="Ask Perplexity about Easy Intake" title="Perplexity — prefilled prompt">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><line x1="5" y1="19" x2="19" y2="5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </a>
+            <button type="button" class="text-slate-400 hover:text-white transition-colors bg-transparent border-0 cursor-pointer p-0" onclick="easyIntakeAskClaude('en')" aria-label="Ask Claude about Easy Intake — copies prompt, opens Claude" title="Claude — copies prompt, open tab and paste">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3h3v18H6V3zm4.5 0h3v18h-3V3zm4.5 0h3v18h-3V3z"/></svg>
+            </button>
+            <a class="text-slate-400 hover:text-white transition-colors" href="https://gemini.google.com/app?q=Based%20on%20https%3A%2F%2Feasyintakeapp.com%2F%20and%20https%3A%2F%2Feasyintakeapp.com%2Fghl%2F%2C%20summarize%20Easy%20Intake%20in%204%20bullet%20points%3A%20what%20it%20is%2C%20ideal%20customers%20(including%20GoHighLevel%20agencies%20and%20Spanish%2FEnglish%20workflows)%2C%20channels%20supported%20(voice%2C%20SMS%2C%20WhatsApp%2C%20chat%2C%20forms)%2C%20and%20outputs%20(CRM%20fields%2C%20PDF%2C%20API).%20Do%20not%20invent%20pricing%3B%20say%20access%20is%20via%20beta%20or%20demo%20if%20not%20published." target="_blank" rel="noopener noreferrer" aria-label="Ask Google Gemini about Easy Intake" title="Gemini — prefilled prompt">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z"/></svg>
+            </a>
+            <a class="text-slate-400 hover:text-white transition-colors" href="https://copilot.microsoft.com/chats?q=Based%20on%20https%3A%2F%2Feasyintakeapp.com%2F%20and%20https%3A%2F%2Feasyintakeapp.com%2Fghl%2F%2C%20summarize%20Easy%20Intake%20in%204%20bullet%20points%3A%20what%20it%20is%2C%20ideal%20customers%20(including%20GoHighLevel%20agencies%20and%20Spanish%2FEnglish%20workflows)%2C%20channels%20supported%20(voice%2C%20SMS%2C%20WhatsApp%2C%20chat%2C%20forms)%2C%20and%20outputs%20(CRM%20fields%2C%20PDF%2C%20API).%20Do%20not%20invent%20pricing%3B%20say%20access%20is%20via%20beta%20or%20demo%20if%20not%20published." target="_blank" rel="noopener noreferrer" aria-label="Ask Microsoft Copilot about Easy Intake" title="Copilot — prefilled prompt">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="7.5" cy="7.5" r="2.5"/><circle cx="16.5" cy="7.5" r="2.5"/><circle cx="7.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
+            </a>
+            </div>
+            </div>
+            <div class="text-center space-y-4">
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[10px] tracking-widest uppercase text-gray-500">
+                <a href="/terms" class="hover:text-gray-400">Terms of Service</a>
+                <a href="/privacy" class="hover:text-gray-400">Privacy Policy</a>
+            </div>
+            <div class="flex justify-center items-center gap-3 text-xs text-gray-500">
+                <span class="font-medium text-white">EN</span>
+                <span class="text-gray-600">|</span>
+                <a href="/es/technology/map/" class="hover:text-gray-400">ES</a>
+            </div>
+            <p class="text-[10px] text-gray-600"><a href="/" class="hover:text-gray-400">Home</a> · <a href="/technology/" class="hover:text-gray-400">Technology</a> · <a href="/#use-cases" class="hover:text-gray-400">Use Cases</a></p>
+            <p class="text-[10px] tracking-widest uppercase text-gray-600">&copy; 2026 Easy Intake App. All rights reserved.</p>
+            </div>
         </div>
-    </section>
+        <script src="/assets/ask-ai.js" defer></script>
+    </footer>
 
     <script>
         (function () {
@@ -227,6 +277,16 @@
             function bindScrollUnlock(rows) {
                 var n = rows.length;
                 var ticking = false;
+                function unlockAllRows() {
+                    for (var i = 0; i < n; i++) rows[i].classList.add('jmap-unlocked');
+                    if (hint) hint.style.opacity = '';
+                    if (scrollCue) scrollCue.classList.add('journey-scroll-cue--dismissed');
+                }
+                if (window.matchMedia('(max-width: 767px)').matches) {
+                    rows[0].classList.add('jmap-unlocked');
+                    unlockAllRows();
+                    return;
+                }
                 function apply() {
                     ticking = false;
                     var rect = wrap.getBoundingClientRect();
