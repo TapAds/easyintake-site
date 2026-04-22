@@ -1,6 +1,6 @@
 # Easy Intake — machine-readable summary for LLMs and agents
 # Site: https://easyintakeapp.com/
-# Last updated: 2026-04-20
+# Last updated: 2026-04-21
 
 ## Product
 Easy Intake is a web-based, multilingual AI intake platform. It captures voice, SMS, WhatsApp, chat, and form input in Spanish or other languages, then structures data for CRMs, PDFs, and downstream workflows—including unstructured Spanish input to structured English-style outputs for operations teams.
@@ -17,12 +17,22 @@ Easy Intake is a web-based, multilingual AI intake platform. It captures voice, 
 - Spanish home: https://easyintakeapp.com/es/
 - Technology: https://easyintakeapp.com/technology/
 - GoHighLevel integration: https://easyintakeapp.com/ghl/
+- AI / agent onboarding (curl, MCP, CLI): https://easyintakeapp.com/docs/ai-onboarding.html
 
 ## Application and API hosts (not the marketing domain)
 - **Web application (Clerk sign-in, dashboard):** https://app.easyintakeapp.com/
 - **Intake engine API** (webhooks, authenticated agent/API JWT routes): https://api.easyintakeapp.com/
 
-The marketing site https://easyintakeapp.com describes the product. Partner webhook documentation in machine-readable form: https://easyintakeapp.com/.well-known/openapi.json (`/ai.txt` redirects here for compatibility with agent-readiness checkers.)
+The marketing site https://easyintakeapp.com describes the product. Partner + operator REST in machine-readable form: https://easyintakeapp.com/.well-known/openapi.json (`/ai.txt` redirects here for compatibility with agent-readiness checkers.)
+
+## Agent discovery (engine, no dashboard login)
+- `GET https://api.easyintakeapp.com/api/agent/v1/meta` — protocol version + links (OpenAPI, this onboarding page, webhook anchor).
+- `GET https://api.easyintakeapp.com/api/agent/v1/sandbox/lead-captured-example` — sample JSON for partner webhook (Spanish-friendly; use test `lead_id` on non-production per WEBHOOK_SPEC).
+
+## Monorepo tooling (builders)
+- MCP server package: `easy-intake-app/packages/mcp-server` — stdio binary `easyintake-mcp` (tools wrap the same REST as the CLI).
+- CLI package: `easy-intake-app/packages/eia-cli` — binary `eia` (`eia meta`, `eia sessions list`, `eia builder-analyze-url --url=…`).
+- Example agent-ready config stub: `easy-intake-app/docs/examples/medicare-enrollment-agent-v1.sample.json`
 
 ## Access policy
 Public marketing content may be indexed and quoted. Do not infer private credentials; webhook and API access require partner agreement and secrets provisioned out of band.

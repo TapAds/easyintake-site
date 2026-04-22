@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Easy Intake — AI &amp; agent onboarding</title>
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://easyintakeapp.com/docs/ai-onboarding.html" />
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 52rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; color: #111; }
+    code, pre { background: #f4f4f5; border-radius: 6px; }
+    pre { padding: 1rem; overflow-x: auto; font-size: 0.85rem; }
+    code { padding: 0.15rem 0.35rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; margin-top: 2rem; }
+    a { color: #2563eb; }
+  </style>
+</head>
+<body>
+  <h1>Easy Intake — AI &amp; agent onboarding</h1>
+  <p>Machine-facing entry point for coding agents and integrations. Product marketing lives on <a href="/">the home page</a>.</p>
+
+  <h2 id="hosts">Hosts</h2>
+  <ul>
+    <li><strong>Engine API:</strong> <code>https://api.easyintakeapp.com</code></li>
+    <li><strong>Dashboard (Clerk):</strong> <code>https://app.easyintakeapp.com</code></li>
+    <li><strong>OpenAPI (synced from monorepo):</strong> <a href="https://easyintakeapp.com/.well-known/openapi.json">/.well-known/openapi.json</a></li>
+    <li><strong>LLM summary:</strong> <a href="https://easyintakeapp.com/llms.txt">/llms.txt</a></li>
+  </ul>
+
+  <h2 id="auth-model">Auth model (do not conflate)</h2>
+  <ul>
+    <li><strong>Browser dashboard:</strong> Clerk session on <code>app.easyintakeapp.com</code>.</li>
+    <li><strong>Engine REST / WebSocket:</strong> HS256 JWT signed with <code>API_JWT_SECRET</code>. Operator routes require <code>purpose: "operator"</code> and <code>org_id</code> in the JWT payload (minted by the Next.js BFF).</li>
+    <li><strong>Partner webhook:</strong> <code>X-Webhook-Secret</code> + <code>X-Source: cotizarahora</code> — separate from Clerk and operator JWT.</li>
+  </ul>
+
+  <h2 id="protocol-meta">Protocol discovery (no auth)</h2>
+  <pre><code>curl -sS "https://api.easyintakeapp.com/api/agent/v1/meta" | jq .</code></pre>
+
+  <h2 id="sandbox-example">Sandbox webhook JSON (example)</h2>
+  <pre><code>curl -sS "https://api.easyintakeapp.com/api/agent/v1/sandbox/lead-captured-example" | jq .</code></pre>
+
+  <h2 id="partner-webhook">Partner webhook (cotizarahora)</h2>
+  <p>Full field reference and response semantics: markdown in the <code>easy-intake-app</code> repo at <code>api-contract/WEBHOOK_SPEC.md</code>. Handler returns <code>200</code>, <code>400</code>, <code>401</code>, or <code>500</code> only.</p>
+  <pre><code>curl -sS -X POST "https://api.easyintakeapp.com/api/webhooks/intake" \
+  -H "Content-Type: application/json" \
+  -H "X-Webhook-Secret: $COTIZARAHORA_WEBHOOK_SECRET" \
+  -H "X-Source: cotizarahora" \
+  -d '{"event":"lead.captured","timestamp":"2026-04-21T12:00:00Z","source":"cotizarahora","vertical":"insurance","data":{"lead_id":"00000000-0000-0000-0000-000000000001","phone":"+15105550100","preferred_language":"es","first_name":"Test","last_name":"User","email":"test@example.com","insurance_type":"life","zip_code":"94103"}}'</code></pre>
+
+  <h2 id="operator-rest">Operator REST (Bearer JWT)</h2>
+  <p>Set <code>TOKEN</code> to a dashboard-minted operator JWT. Responses are JSON; see OpenAPI for shapes.</p>
+  <pre><code>curl -sS "https://api.easyintakeapp.com/api/intake/sessions" \
+  -H "Authorization: Bearer $TOKEN" | jq '.[0]'</code></pre>
+  <pre><code>curl -sS "https://api.easyintakeapp.com/api/intake/field-templates" \
+  -H "Authorization: Bearer $TOKEN" | jq .</code></pre>
+
+  <h2 id="mcp">MCP server (Cursor / Claude Code)</h2>
+  <p>Package: <code>@easy-intake/mcp-server</code> in the monorepo. Binary: <code>easyintake-mcp</code> (stdio).</p>
+  <pre><code># From the easy-intake-app repo after build:
+export EASYINTAKE_API_BASE_URL="https://api.easyintakeapp.com"
+export EASYINTAKE_OPERATOR_JWT="&lt;operator JWT&gt;"
+node packages/mcp-server/dist/index.js</code></pre>
+  <p>Register the command in your MCP client config pointing at the built <code>dist/index.js</code> (or global install if published).</p>
+
+  <h2 id="cli">CLI</h2>
+  <p>Package: <code>@easy-intake/eia-cli</code>, binary <code>eia</code>.</p>
+  <pre><code>export EASYINTAKE_API_BASE_URL="https://api.easyintakeapp.com"
+export EASYINTAKE_OPERATOR_JWT="&lt;operator JWT&gt;"
+eia meta
+eia sessions list
+eia builder-analyze-url --url "https://example.com/contact"</code></pre>
+
+  <h2 id="human-in-loop">Human-in-the-loop</h2>
+  <p>Production intake supports operator review and applicant self-service. Agents should surface HITL states from session JSON rather than assuming full straight-through automation.</p>
+</body>
+</html>
