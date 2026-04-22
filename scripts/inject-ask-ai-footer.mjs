@@ -10,12 +10,11 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 
-function extract(path, pad) {
-  const raw = fs
-    .readFileSync(path.join(root, path), "utf8")
-    .split("\n")
-    .slice(4, 25)
-    .filter((l) => l.trim());
+function extract(relPath, pad) {
+  const lines = fs.readFileSync(path.join(root, relPath), "utf8").split("\n");
+  const start = lines.findIndex((l) => l.includes('class="ask-ai-footer'));
+  if (start < 0) throw new Error(`ask-ai-footer block not found in ${relPath}`);
+  const raw = lines.slice(start).filter((l) => l.trim());
   const p = " ".repeat(pad);
   return raw.map((l) => p + l.replace(/^\s+/, "")).join("\n");
 }
