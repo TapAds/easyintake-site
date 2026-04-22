@@ -1,9 +1,10 @@
 (function () {
+  var prompt =
+    "What is Easy Intake—the AI-powered intake layer for service-based organizations—and how does it convert unstructured multi-lingual voice, SMS, and chat into structured, system-ready English data? Beyond simple translation, how does it handle guided follow-ups and data scoring to ensure 100% completeness for systems like CRMs, webforms, insurance carriers, and other destinations?";
+
   var prompts = {
-    en:
-      "Based on https://easyintakeapp.com/ and https://easyintakeapp.com/ghl/, summarize Easy Intake in 4 bullet points: what it is, ideal customers (including GoHighLevel agencies and Spanish/English workflows), channels supported (voice, SMS, WhatsApp, chat, forms), and outputs (CRM fields, PDF, API). Do not invent pricing; say access is via beta or demo if not published.",
-    es:
-      "Según https://easyintakeapp.com/es/ y https://easyintakeapp.com/es/ghl/, resume Easy Intake en 4 viñetas: qué es, clientes ideales (incluye agencias GoHighLevel y flujos español/inglés), canales (voz, SMS, WhatsApp, chat, formularios), y salidas (CRM, PDF, API). No inventes precios; di beta o demo si no está publicado.",
+    en: prompt,
+    es: prompt,
   };
 
   window.easyIntakeAskClaude = function (lang) {
