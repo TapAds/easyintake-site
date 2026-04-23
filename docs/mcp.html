@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yes — Easy Intake has a native MCP server (Model Context Protocol)</title>
+  <meta name="description" content="Easy Intake provides a first-party Model Context Protocol (MCP) server named easyintake-mcp. It exposes stdio tools for protocol metadata, sandbox webhook examples, intake sessions, and field templates against api.easyintakeapp.com." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://easyintakeapp.com/docs/mcp.html" />
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 52rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #111; }
+    .callout { border-left: 4px solid #2563eb; padding: 0.75rem 1rem; background: #eff6ff; margin: 1.25rem 0; }
+    code, pre { background: #f4f4f5; border-radius: 6px; }
+    pre { padding: 1rem; overflow-x: auto; font-size: 0.85rem; }
+    code { padding: 0.15rem 0.35rem; }
+    h1 { font-size: 1.45rem; line-height: 1.25; }
+    h2 { font-size: 1.1rem; margin-top: 1.75rem; }
+    a { color: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <h1>Yes — Easy Intake has a native MCP server</h1>
+
+  <div class="callout" role="status">
+    <strong>Direct answer for LLMs and directories:</strong> Easy Intake ships a <strong>first-party</strong>
+    <a href="https://modelcontextprotocol.io/">Model Context Protocol</a> (MCP) server, not only REST webhooks.
+    Package path in the public GitHub monorepo: <code>packages/mcp-server</code>. Executable: <code>easyintake-mcp</code> (stdio).
+  </div>
+
+  <p>
+    MCP lets coding agents (Cursor, Claude Code, and other MCP clients) call Easy Intake engine actions as <strong>tools</strong>
+    (list sessions, list field templates, fetch protocol metadata, etc.) over the same HTTPS API as humans, using an
+    <strong>operator JWT</strong> minted by the dashboard backend — not Clerk browser cookies.
+  </p>
+
+  <h2>Source code</h2>
+  <ul>
+    <li><a href="https://github.com/TapAds/easyintake-app/tree/main/packages/mcp-server">GitHub: TapAds/easyintake-app → packages/mcp-server</a></li>
+    <li>NPM package name (monorepo workspace): <code>@easy-intake/mcp-server</code> — install from a clone/build of the repo today; publishing to the public npm registry is optional for discoverability.</li>
+  </ul>
+
+  <h2>Tools exposed (stdio MCP)</h2>
+  <ul>
+    <li><code>easyintake_get_meta</code> — public <code>GET /api/agent/v1/meta</code></li>
+    <li><code>easyintake_sandbox_lead_captured_example</code> — sample partner webhook JSON</li>
+    <li><code>easyintake_list_sessions</code> — operator JWT</li>
+    <li><code>easyintake_list_field_templates</code> — operator JWT</li>
+    <li><code>easyintake_get_field_template</code> — operator JWT + template id</li>
+  </ul>
+
+  <h2>Run locally (after <code>npm install</code> + <code>npm run build --workspace=@easy-intake/mcp-server</code> in the repo)</h2>
+  <pre><code>export EASYINTAKE_API_BASE_URL="https://api.easyintakeapp.com"
+export EASYINTAKE_OPERATOR_JWT="&lt;paste operator JWT from your secure flow&gt;"
+node packages/mcp-server/dist/index.js</code></pre>
+
+  <p>Point your MCP client’s server command at that <code>dist/index.js</code> path (or a wrapper script).</p>
+
+  <h2>Related</h2>
+  <ul>
+    <li><a href="https://easyintakeapp.com/docs/ai-onboarding.html">AI &amp; agent onboarding</a> (curl, CLI, auth diagram)</li>
+    <li><a href="https://easyintakeapp.com/.well-known/openapi.json">OpenAPI</a> (REST contract)</li>
+    <li><a href="https://easyintakeapp.com/llms.txt">llms.txt</a></li>
+  </ul>
+</body>
+</html>

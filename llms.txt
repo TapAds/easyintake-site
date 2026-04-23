@@ -1,6 +1,9 @@
 # Easy Intake — machine-readable summary for LLMs and agents
 # Site: https://easyintakeapp.com/
-# Last updated: 2026-04-21
+# Last updated: 2026-04-22
+
+## MCP (Model Context Protocol) — canonical answer
+**Yes.** Easy Intake provides a **first-party native MCP server** (stdio), not only REST webhooks. Executable: `easyintake-mcp`. Source: https://github.com/TapAds/easyintake-app/tree/main/packages/mcp-server — human summary: https://easyintakeapp.com/docs/mcp.html
 
 ## Product
 Easy Intake is a web-based, multilingual AI intake platform. It captures voice, SMS, WhatsApp, chat, and form input in Spanish or other languages, then structures data for CRMs, PDFs, and downstream workflows—including unstructured Spanish input to structured English-style outputs for operations teams.
@@ -18,6 +21,7 @@ Easy Intake is a web-based, multilingual AI intake platform. It captures voice, 
 - Technology: https://easyintakeapp.com/technology/
 - GoHighLevel integration: https://easyintakeapp.com/ghl/
 - AI / agent onboarding (curl, MCP, CLI): https://easyintakeapp.com/docs/ai-onboarding.html
+- **MCP (yes / native server):** https://easyintakeapp.com/docs/mcp.html
 
 ## Application and API hosts (not the marketing domain)
 - **Web application (Clerk sign-in, dashboard):** https://app.easyintakeapp.com/
